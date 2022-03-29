@@ -5,3 +5,8 @@ test('should allow me to add todo items', async ({ page }) => {
   await expect(page).toHaveScreenshot();
 });
 
+test('test playwright.dev', async ({ page }) => {
+  await page.goto('https://playwright.dev');
+  await expect(page).toHaveScreenshot();
+});
+

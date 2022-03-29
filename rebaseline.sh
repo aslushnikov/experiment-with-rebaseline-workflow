@@ -34,9 +34,6 @@ if [[ -z "${COMMIT_PATH}" ]]; then
   exit 1
 fi
 
-echo "MESSAGE: ${COMMIT_MESSAGE}"
-echo "PATH: ${COMMIT_PATH}"
-
 if [[ -z "$(git status --porcelain $COMMIT_PATH)" ]]; then
   echo "Nothing to commit"
   exit 0
@@ -54,10 +51,7 @@ git checkout "${GITHUB_HEAD_REF}"
 git add "${COMMIT_PATH}"
 git commit -m "${COMMIT_MESSAGE}"
 
-if git push; then
-  exit 0
-fi
-
+SHA=$(git rev-parse HEAD)
 for i in $(seq 10); do
   echo "Push attempt #i"
   if git push; then
@@ -65,6 +59,10 @@ for i in $(seq 10); do
     exit 0
   fi
   git pull --rebase
+  if [[ $(git shortlog -s -n $SHA^.. | wc -l | tr -d ' ') != 1 ]]; then
+    echo "ABORTING: someone else pushed to a branch"
+    exit 1
+  fi
   TIMEOUT=$((i + $RANDOM % 5))
   echo "Sleeping $TIMEOUT seconds before next attempt..."
   sleep $TIMEOUT
