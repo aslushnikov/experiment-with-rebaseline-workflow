@@ -7,9 +7,19 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    name: test ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@v2
+    #  with:
+    #    persist-credentials: false
+    #    fetch-depth: 0
+    # - run: mkdir -p tests/__screenshots__ && echo yo > tests/__screenshots__/${{ matrix.os }}.txt
+    # - uses: mxschmitt/action-tmate@v3
     - uses: actions/setup-node@v2
       with:
         node-version: '14.x'
@@ -18,7 +28,15 @@ jobs:
     - name: Install Playwright
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test -u
+    - run: ./rebaseline.sh --path tests/__screenshots__ --message "Update screenshots for ${{ matrix.os }}"
+      shell: bash
+    # - uses: gr2m/create-or-update-pull-request-action@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     path: "tests/__screenshots__"
+    #     commit-message: "Update screenshots on ${{ matrix.os }}"
     - uses: actions/upload-artifact@v2
       if: always()
       with:
