@@ -24,9 +24,10 @@ jobs:
       run: |
         git config --global user.name 'Your Name'
         git config --global user.email 'your-username@users.noreply.github.com'
-        git add tests/__screenshots__
-        git commit -m "Update screenshots for ${{ matrix.os }}"
-        git push
+#        git add tests/__screenshots__
+#        git commit -m "Update screenshots for ${{ matrix.os }}"
+#        git push
+    - uses: mxschmitt/action-tmate@v3
 
     # - uses: actions/setup-node@v2
     #   with:
@@ -43,8 +44,6 @@ jobs:
     #   with:
     #     path: "tests/__screenshots__"
     #     commit-message: "Update screenshots on ${{ matrix.os }}"
-    # - uses: mxschmitt/action-tmate@v3
-    #   if: always()
     - uses: actions/upload-artifact@v2
       if: always()
       with:
