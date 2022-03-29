@@ -28,9 +28,9 @@ jobs:
       run: npx playwright test -u
     - uses: gr2m/create-or-update-pull-request-action@v1
       env:
+        ACTIONS_STEP_DEBUG: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        author: "Andrey Lushnikov <aslushnikov@gmail.com>"
         path: "tests/__screenshots__"
     - uses: actions/upload-artifact@v2
       if: always()
