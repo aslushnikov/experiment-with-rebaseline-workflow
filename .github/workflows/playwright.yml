@@ -17,15 +17,16 @@ jobs:
     - uses: actions/checkout@v2
       with:
         persist-credentials: false
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14.x'
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test -u
+    - run: mkdir -p tests/__screenshots__ && echo yo > tests/__screenshots__/${{ matrix.os }}.txt
+    # - uses: actions/setup-node@v2
+    #   with:
+    #     node-version: '14.x'
+    # - name: Install dependencies
+    #   run: npm ci
+    # - name: Install Playwright
+    #   run: npx playwright install --with-deps
+    # - name: Run Playwright tests
+    #   run: npx playwright test -u
     - uses: gr2m/create-or-update-pull-request-action@v1
       env:
         ACTIONS_STEP_DEBUG: true
