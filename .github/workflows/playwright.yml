@@ -31,6 +31,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         author: "Andrey Lushnikov <aslushnikov@gmail.com>"
+        path: "tests/__screenshots__"
     - uses: actions/upload-artifact@v2
       if: always()
       with:
