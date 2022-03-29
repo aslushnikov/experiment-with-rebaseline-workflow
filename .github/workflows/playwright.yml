@@ -29,6 +29,8 @@ jobs:
     - uses: gr2m/create-or-update-pull-request-action@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        author: "Andrey Lushnikov <aslushnikov@gmail.com>"
     - uses: actions/upload-artifact@v2
       if: always()
       with:
