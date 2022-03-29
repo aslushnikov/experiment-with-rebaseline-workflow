@@ -16,9 +16,9 @@ jobs:
         os: [ubuntu-latest]
     steps:
     - uses: actions/checkout@v2
-      with:
-        persist-credentials: false
-        fetch-depth: 0
+    #  with:
+    #    persist-credentials: false
+    #    fetch-depth: 0
     - run: mkdir -p tests/__screenshots__ && echo yo > tests/__screenshots__/${{ matrix.os }}.txt
     - name: Commit back to branch
       run: |
