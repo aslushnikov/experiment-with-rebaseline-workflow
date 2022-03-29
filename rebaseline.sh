@@ -53,4 +53,21 @@ git fetch
 git checkout "${GITHUB_HEAD_REF}"
 git add "${COMMIT_PATH}"
 git commit -m "${COMMIT_MESSAGE}"
-git push
+
+if git push; then
+  exit 0
+fi
+
+for i in $(seq 10); do
+  echo "Push attempt #i"
+  if git push; then
+    echo "SUCCESS: Updates pushed"
+    exit 0
+  fi
+  git pull --rebase
+  TIMEOUT=$((i + $RANDOM % 5))
+  echo "Sleeping $TIMEOUT seconds before next attempt..."
+  sleep $TIMEOUT
+done
+
+echo "Updated FAILED"
