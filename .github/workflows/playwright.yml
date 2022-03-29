@@ -34,8 +34,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         path: "tests/__screenshots__"
-    - uses: mxschmitt/action-tmate@v3
-      if: always()
+        commit-message: "Update screenshots on ${{ matrix.os }}"
+    # - uses: mxschmitt/action-tmate@v3
+    #   if: always()
     - uses: actions/upload-artifact@v2
       if: always()
       with:
