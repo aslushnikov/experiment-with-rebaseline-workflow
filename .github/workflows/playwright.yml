@@ -21,14 +21,7 @@ jobs:
     #    fetch-depth: 0
     - run: mkdir -p tests/__screenshots__ && echo yo > tests/__screenshots__/${{ matrix.os }}.txt
     - name: Commit back to branch
-      run: |
-        git config --global user.name 'Your Name'
-        git config --global user.email 'your-username@users.noreply.github.com'
-        git fetch
-        git checkout $GITHUB_HEAD_REF
-        git add tests/__screenshots__
-        git commit -m "Update screenshots for ${{ matrix.os }}"
-        git push
+      run: ./rebaseline.sh --path tests/__screenshots__
     # - uses: mxschmitt/action-tmate@v3
     # - uses: actions/setup-node@v2
     #   with:
