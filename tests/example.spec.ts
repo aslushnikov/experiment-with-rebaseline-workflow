@@ -10,3 +10,8 @@ test('test playwright.dev', async ({ page }) => {
   await expect(page).toHaveScreenshot();
 });
 
+test('test google.com', async ({ page }) => {
+  await page.goto('https://google.com');
+  await expect(page).toHaveScreenshot();
+});
+
