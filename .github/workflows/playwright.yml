@@ -21,7 +21,7 @@ jobs:
     #    fetch-depth: 0
     - run: mkdir -p tests/__screenshots__ && echo yo > tests/__screenshots__/${{ matrix.os }}.txt
     - name: Commit back to branch
-      run: ./rebaseline.sh --path tests/__screenshots__
+      run: ./rebaseline.sh --path tests/__screenshots__ --message "Update screenshots for ${{ matrix.os }}"
     # - uses: mxschmitt/action-tmate@v3
     # - uses: actions/setup-node@v2
     #   with:
