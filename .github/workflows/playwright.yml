@@ -32,7 +32,6 @@ jobs:
     # - uses: mxschmitt/action-tmate@v3
     - uses: gr2m/create-or-update-pull-request-action@v1
       env:
-        ACTIONS_STEP_DEBUG: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         path: "tests/__screenshots__"
