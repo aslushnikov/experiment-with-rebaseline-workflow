@@ -20,6 +20,14 @@ jobs:
         persist-credentials: false
         fetch-depth: 0
     - run: mkdir -p tests/__screenshots__ && echo yo > tests/__screenshots__/${{ matrix.os }}.txt
+    - name: Commit back to branch
+      run: |
+        git config --global user.name 'Your Name'
+        git config --global user.email 'your-username@users.noreply.github.com'
+        git add tests/__screenshots__
+        git commit -m "Update screenshots for ${{ matrix.os }}"
+        git push
+
     # - uses: actions/setup-node@v2
     #   with:
     #     node-version: '14.x'
@@ -29,12 +37,12 @@ jobs:
     #   run: npx playwright install --with-deps
     # - name: Run Playwright tests
     #   run: npx playwright test -u
-    - uses: gr2m/create-or-update-pull-request-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        path: "tests/__screenshots__"
-        commit-message: "Update screenshots on ${{ matrix.os }}"
+    # - uses: gr2m/create-or-update-pull-request-action@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     path: "tests/__screenshots__"
+    #     commit-message: "Update screenshots on ${{ matrix.os }}"
     # - uses: mxschmitt/action-tmate@v3
     #   if: always()
     - uses: actions/upload-artifact@v2
